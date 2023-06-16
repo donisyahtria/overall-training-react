@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./hitungmundur.css" />
+  </head>
+  <body>
+    <h1>Hitung Mundur</h1>
+
+    <!-- untuk masukan data -->
+    <input type="number" id="masukAngka" placeholder="Angka Disini" />
+
+    <!-- untuk tombol mulai menggunakan fungsi onclick -->
+    <button onclick="startCountdown()">Mulai</button>
+
+    <!-- untuk menampilkan hitung mundur -->
+    <p id="hitungMundur"></p>
+
+    <script>
+      // fungsi untuk menghitung mundur
+      function startCountdown() {
+        let input = parseInt(document.getElementById("masukAngka").value); // membuat variable baru dari inputan number
+        let countdown = document.getElementById("hitungMundur"); //menyimpan hitungan mundur
+        countdown.innerHTML = input; // menampilkan angka awal dari inputan untuk hitung mundur
+
+        var countdownInterval = setInterval(function () {
+          input--; //fungsi untuk mengurangi nilai dari inputan yang kita masukan
+          countdown.innerHTML = input; // menampilkan nilai input yang dihitung mundur
+
+          if (input <= 0) {
+            clearInterval(countdownInterval);
+            alert("Waktu Habis");
+            location.reload(); //muat ulang halaman
+          } //kondisi jika nilai telah mencapai atau lebih dari 0 maka elemen paragraf dimanipulasi menampilkan waktu habis
+        }, 1000); //1000ms = 1s
+      }
+    </script>
+  </body>
+</html>
