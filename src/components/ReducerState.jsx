@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useReducer, useState, useEffect, useRef } from "react";
 
 const initialState = {
   counter: 0,
@@ -23,33 +23,59 @@ const counterReducer = (state, action) => {
 };
 
 const ReducerState = () => {
-  const [state, dispatch] = useReducer(counterReducer, initialState);
-  const { counter, name } = state;
+  // const [state, dispatch] = useReducer(counterReducer, initialState);
+  // const { counter, name } = state;
 
-  //(kedua)   const [counter, setCounter] = useState(0);
-  //   const [name, setName] = useState("");
+  /*(kedua)*/
+  const [counter, setCounter] = useState(0);
+  // const [name, setName] = useState("");
 
-  console.log("render");
+  // console.log("render");
 
-  //(kedua)   useEffect(() => {
-  //     console.log({ counter, name });
-  //   }, [counter, name]);
+  const inputRef = useRef(null);
+
+  /*(kedua)*/
+  useEffect(() => {
+    // if (counter == 2) {
+    //   console.log("its two");
+    //   setCounter(0);
+    // }
+    console.log(inputRef.current);
+  }, [inputRef.current]);
+
+  const updateRef = () => {
+    inputRef.current = "string";
+  };
+
+  const debounceRef = useRef(null);
+
+  const onChange = (e) => {
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    debounceRef.current = setTimeout(() => {
+      console.log(e.target.value);
+    }, 800);
+  }; //untuk delay memperingan fetching api
 
   return (
     <div>
       <h1>Reducer State</h1>
+      {/* <input ref={inputRef} /> */}
       <p>{counter}</p>
       <p>{name}</p>
       <button
         onClick={() => {
-          //(kedua)   setCounter(counter + 1);
-          //   setName("Budi");
-          dispatch({ type: actions.INCREMENT });
-          dispatch({ type: actions.SET_NAME, payload: "Doni" });
+          /*(kedua)*/
+          // setCounter(counter + 1);
+          updateRef();
+          // setName("Budi");
+          // dispatch({ type: actions.INCREMENT });
+          // dispatch({ type: actions.SET_NAME, payload: "Doni" });
         }}
       >
         Add Counter
       </button>
+      <button onClick={() => console.log(inputRef.current)}>show ref</button>
+      <input onChange={onChange} />
     </div>
   );
 };
